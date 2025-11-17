@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Voteing Plateform</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <section class="card" aria-labelledby="authTitle">
+      <div class="brand">
+        <div class="logo">UID</div>
+        <div>
+          <h1 id="authTitle">Welcome back</h1>
+          <p class="lead">Use your Aadhaar number to sign in or create an account.</p>
+        </div>
+      </div>
+
+      <div class="toggle" role="tablist" aria-label="Authentication toggle">
+        <button id="btn-signin" class="active" type="button" aria-selected="true">Sign in</button>
+        <button id="btn-signup" type="button" aria-selected="false">Sign up</button>
+      </div>
+
+      <!-- Sign in form -->
+      <form id="signin-form" autocomplete="on">
+        <div>
+          <label for="signin-aadhaar">Aadhaar number</label>
+          <input id="signin-aadhaar" name="aadhaar" type="text" inputmode="numeric" maxlength="14" placeholder="1234 5678 9012" aria-describedby="aadhaarHelp">
+          <div id="aadhaarHelp" class="helper">Enter 12-digit Aadhaar (numbers only).</div>
+        </div>
+
+        <div>
+          <label for="signin-password">Password</label>
+          <input id="signin-password" name="password" type="password" placeholder="Your password">
+        </div>
+
+        <div class="form-foot">
+          <label class="muted"><input id="remember" type="checkbox"> Remember me</label>
+          <!-- <a href="#" class="muted" id="forgot">Forgot?</a> -->
+        </div>
+
+        <div class="row">
+          <button type="submit" class="btn">Sign in</button>
+          <button type="button" id="to-signup" class="btn ghost">Create account</button>
+        </div>
+
+        <div id="signin-msg" role="status" aria-live="polite"></div>
+      </form>
+
+      <!-- Sign up form -->
+      <form id="signup-form" style="display:none" autocomplete="on">
+        <div>
+          <label for="signup-name">Full name</label>
+          <input id="signup-name" name="name" type="text" placeholder="Your full name">
+        </div>
+
+        <div>
+          <label for="signup-aadhaar">Aadhaar number</label>
+          <input id="signup-aadhaar" name="aadhaar" type="text" inputmode="numeric" maxlength="14" placeholder="1234 5678 9012">
+        </div>
+
+        <div class="row">
+          <div style="flex:1">
+            <label for="signup-password">Password</label>
+            <input id="signup-password" name="password" type="password" placeholder="Choose a password">
+          </div>
+          <div style="flex:1">
+            <label for="signup-confirm">Confirm password</label>
+            <input id="signup-confirm" name="confirm" type="password" placeholder="Repeat password">
+          </div>
+        </div>
+
+        <div class="row">
+          <button type="submit" class="btn">Create account</button>
+          <button type="button" id="to-signin" class="btn ghost">Have an account?</button>
+        </div>
+
+        <div id="signup-msg" role="status" aria-live="polite"></div>
+      </form>
+
+    </section>
+
+    <aside class="info" aria-hidden="false">
+      <h2>Why Aadhaar?</h2>
+      <p class="small">Using a verified Aadhaar number simplifies identity. This demo uses client-side validation only.</p>
+
+      <div class="feature">
+        <div class="dot"></div>
+        <div>
+          <strong>Security-first</strong>
+          <p class="small">Keep passwords strong and never store them in plain text.</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="dot"></div>
+        <div>
+          <strong>Validation</strong>
+          <p class="small">Aadhaar number validated locally (12 digits).</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

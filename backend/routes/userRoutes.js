@@ -86,11 +86,17 @@ router.put('/profile/password', jwtAuthMiddleware, async (req,res)=>{
 
         //find user by userId
         const user = await User.findById(userId)
-
+        
         //if not match user or pass return err
-        if(!user || !(await user.comparePassword(password))){
-            return res.status(401).json({error: 'invalid username or password'})
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
         }
+
+        const isMatch = await user.comparePassword(currentPassword);
+        if (!isMatch) {
+            return res.status(401).json({ error: "Current password is wrong" });
+        }
+
 
         user.password = newPassword
         await user.save()
@@ -98,15 +104,6 @@ router.put('/profile/password', jwtAuthMiddleware, async (req,res)=>{
         console.log("password updated")
         res.status(200).json({message: "password updated"})
 
-
-        const responce = await Person.findByIdAndUpdate(_id, updatedPersonData, {
-            new: true,
-            runValidators: true
-        })
-
-        if(!responce) return res.status(404).json({error: 'Person Not Found'});
-        console.log("updated-Person")
-        res.status(200).json(responce)
     }catch(err){
         console.log(`error in updating person ${err}`)
         res.status(500).json({error: 'internal servar error "person-id"'})
