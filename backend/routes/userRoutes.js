@@ -1,9 +1,16 @@
 const express = require('express')
 const router = express.Router()
 const User = require('./../models/user')
+const path = require("path");
+const candidate = require('../models/candidate')
 const {jwtAuthMiddleware, generateToken} = require('./../jwt')
-const { json } = require('body-parser')
 // const { json } = require('body-parser')
+
+router.use(express.static(path.join(__dirname, '../../frontend')));
+router.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "../../frontend/html/index.html"));
+});
+
 router.post('/signup', async (req, res) => {
 
     try {
@@ -67,11 +74,17 @@ router.post('/login', async (req,res) => {
     }
 })
 
+
+// router.get("/homepage", (req, res) => {
+//     console.log(__dirname)
+//     res.sendFile(path.join(__dirname, "../../frontend/html/homepage.html"));
+// });
+
 router.get('/profile', jwtAuthMiddleware, async (req,res) => {
     try{
         const userData = req.user
         const userId = userData.id
-        const user = await Person.findById(userId)
+        const user = await User.findById(userId)
         res.status(200).json({user})
     }catch(err){
         console.log(err)
@@ -81,7 +94,7 @@ router.get('/profile', jwtAuthMiddleware, async (req,res) => {
 
 router.put('/profile/password', jwtAuthMiddleware, async (req,res)=>{
     try{
-        const userId = req.id
+        const userId = req.user.id
         const {currentPassword,newPassword} = req.body
 
         //find user by userId
@@ -107,6 +120,71 @@ router.put('/profile/password', jwtAuthMiddleware, async (req,res)=>{
     }catch(err){
         console.log(`error in updating person ${err}`)
         res.status(500).json({error: 'internal servar error "person-id"'})
+    }
+})
+
+// let's start voting
+router.post('/vote/:candidateID', jwtAuthMiddleware, async (req,res) => {
+    //no admin can vote
+    //user can only vote once
+
+    const candidateID = req.params.candidateID
+    const userId = req.user.id
+
+    try{
+        const candidatee = await candidate.findById(candidateID)
+        if(!candidatee){
+            return res.status(404).json({message: "candidate not found"})
+        }
+
+        const user = await User.findById(userId)
+        if(!user){
+            return res.status(404).json({message: "user not found"})
+        }
+
+        if(user.isVoted){
+            return res.status(400).json({message: "you have already voted"})
+        }
+
+        if(user.role === "admin"){
+            return res.status(403).json({message: "admin not allowed"})
+        }
+
+        candidatee.votes.push({user: userId})
+        candidatee.voteCount++
+        await candidatee.save()
+
+        //update the user document
+        user.isVoted = true
+        await user.save()
+
+        res.status(200).json({message: "vote recorded successfully"})
+
+
+    }catch(err){
+        console.log(err)
+        res.status(500).json({error: 'internal servar error "candidate-id"'})
+    }
+
+})
+
+//vote count
+router.get('/vote/count', async (req,res) => {
+    try{
+        // Find all candidate and sort them by votecount in descending order
+        const candidatee = await candidate.find().sort({voteCount: 'desc'});
+
+        // map the candidate to only  return their name and voteCount
+        const voteRecord = candidatee.map((data) => {
+            return {
+                party: data.party,
+                count: data.voteCount
+            }
+        })
+        return res.status(200).json(voteRecord)
+    }catch(err){
+        console.log(err)
+        res.status(500).json({error: 'internal servar error "candidate-id"'})
     }
 })
 
