@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Profile</title>
+    <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">VotePortal</div>
+        <nav>
+            <ul>
+                <li><a href="homepage.html">Home</a></li>
+                <li><a href="#" class="active">Profile</a></li>
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </nav>
+        <button class="btn">Edit Profile</button>
+    </header>
+
+    <!-- Profile Section -->
+    <section class="profile-container">
+        <h1>My Profile</h1>
+        <div class="profile-card">
+            <p><strong>Name:</strong> <span id="name">John Doe</span></p>
+            <p><strong>Age:</strong> <span id="age">28</span></p>
+            <p><strong>Email:</strong> <span id="email">johndoe@example.com</span></p>
+            <p><strong>Mobile:</strong> <span id="mobile">9876543210</span></p>
+            <p><strong>Address:</strong> <span id="address">123 Street, City</span></p>
+            <p><strong>Aadhar Number:</strong> <span id="aadhar">123456789012</span></p>
+            <p><strong>Role:</strong> <span id="role">Voter</span></p>
+            <p><strong>Voted:</strong> <span id="isVoted">No</span></p>
+        </div>
+
+        <div class="forgot-password">
+            <a href="changepassword.html">Change Password?</a>
+        </div>
+    </section>
+
+    <script src="../js/profile.js"></script>
+</body>
+</html>

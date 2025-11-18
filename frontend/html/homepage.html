@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voting App - Home</title>
+<link rel="stylesheet" href="../css/homepage.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">VA</div>
+  <nav>
+    <ul>
+      <li><a href="homepage.html" class="active">Home</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="candidates.html">Candidates</a></li>
+      <li><a href="vote.html">Vote</a></li>
+      <li><a href="results.html">Results</a></li>
+    </ul>
+  </nav>
+  <button id="logout-btn" class="btn">Logout</button>
+</header>
+
+<main class="hero">
+  <div class="hero-text">
+    <h1>Welcome to Voting App</h1>
+    <p>Cast your vote securely, view candidates, and manage your profile.</p>
+  </div>
+</main>
+
+<section class="sections">
+  <div class="card" onclick="navigate('profile.html')">
+    <h2>Profile</h2>
+    <p>View and update your personal information</p>
+  </div>
+  <div class="card" onclick="navigate('candidates.html')">
+    <h2>Candidate List</h2>
+    <p>See all the candidates in the election</p>
+  </div>
+  <div class="card" onclick="navigate('vote.html')">
+    <h2>Vote</h2>
+    <p>Cast your vote securely</p>
+  </div>
+  <div class="card" onclick="navigate('results.html')">
+    <h2>Results</h2>
+    <p>Check the election results after voting</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>&copy; 2025 Voting App. All rights reserved.</p>
+</footer>
+
+<script src="../js/homepage.js"></script>
+</body>
+</html>
