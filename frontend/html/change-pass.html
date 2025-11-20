@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Change Password</title>
+  <link rel="stylesheet" href="../css/change-pass.css" />
+</head>
+<body>
+
+<div class="wrap">
+  
+  <!-- LEFT: Password Card -->
+  <div class="card">
+      <div class="brand">
+        <div class="logo">VA</div>
+        <div>
+          <h1>Change Password</h1>
+          <p class="lead">Update your account security</p>
+        </div>
+      </div>
+
+      <form id="changePassForm">
+        <div>
+          <label>Old Password</label>
+          <input type="password" id="oldPass" placeholder="Enter old password" />
+        </div>
+
+        <div>
+          <label>New Password</label>
+          <input type="password" id="newPass" placeholder="Enter new password" />
+        </div>
+
+        <div>
+          <label>Confirm New Password</label>
+          <input type="password" id="confirmPass" placeholder="Re-enter new password" />
+        </div>
+
+        <button type="button" class="btn" onclick="changePassword()">Update Password</button>
+        <p id="msg"></p>
+      </form>
+  </div>
+
+  <!-- RIGHT: Info Panel -->
+  <div class="info">
+    <h2>Security Tips</h2>
+    
+    <div class="feature">
+      <div class="dot"></div>
+      <p>Use a strong password with at least 8 characters.</p>
+    </div>
+
+    <div class="feature">
+      <div class="dot"></div>
+      <p>Avoid using your name, birthdate, or simple patterns.</p>
+    </div>
+
+    <div class="feature">
+      <div class="dot"></div>
+      <p>Change your password every 6 months.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="../js/change-pass.js"></script>
+</body>
+</html>

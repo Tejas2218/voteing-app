@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Page</title>
+    <link rel="stylesheet" href="../css/vote.css">
+</head>
+<body>
+
+<div class="wrap">
+    <div class="card">
+        <div class="brand">
+            <div class="logo">VT</div>
+            <h1>Vote Panel</h1>
+        </div>
+        <p class="lead">Select your candidate. You can vote only once.</p>
+
+        <div id="candidateList" class="candidate-list"></div>
+    </div>
+
+    <div class="info">
+        <h2>Secure • Transparent</h2>
+        <p>Your vote will be counted safely.</p>
+
+        <div class="feature">
+            <div class="dot"></div>
+            <p class="small">One-time voting ensures fairness.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Popup -->
+<div id="popupOverlay" class="overlay hidden">
+    <div class="popup">
+        <h3>Confirm Vote</h3>
+        <p id="popupText"></p>
+        <div class="popup-actions">
+            <button id="cancelBtn" class="btn ghost">Cancel</button>
+            <button id="confirmBtn" class="btn">Vote</button>
+        </div>
+    </div>
+</div>
+
+<script src="../js/vote.js"></script>
+</body>
+</html>

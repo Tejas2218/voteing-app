@@ -1,0 +1,99 @@
+/* USE USER THEME */
+:root{
+  --bg1: #0f172a;
+  --bg2: #07143a;
+  --muted: #9aa4bf;
+  --accent: #4f46e5;
+  --accent-2: #06b6d4;
+  --success: #10b981;
+  --danger: #ef4444;
+  --glass: rgba(255,255,255,0.06);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  color:#e6eef8;
+  display:grid;
+  place-items:center;
+  padding:2rem;
+}
+
+.wrap{
+  width:100%;
+  max-width:980px;
+  display:grid;
+  grid-template-columns:460px 1fr;
+  gap:30px;
+  align-items:center;
+}
+
+/* card (same theme) */
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03));
+  backdrop-filter:blur(8px) saturate(120%);
+  border-radius:14px;
+  padding:26px;
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:0 10px 40px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+/* brand */
+.brand{display:flex;gap:12px;align-items:center;margin-bottom:20px}
+.logo{
+  width:52px;height:52px;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:grid;place-items:center;
+  color:white;font-weight:800;font-size:18px;
+  box-shadow:0 8px 26px rgba(79,70,229,0.14);
+}
+h1{margin:6px 0 0;font-size:22px}
+.lead{margin:4px 0 14px;color:var(--muted);font-size:13px}
+
+/* form */
+form{display:flex;flex-direction:column;gap:14px}
+label{font-size:13px;color:var(--muted);margin-bottom:4px}
+input{
+  background:transparent;border:1px solid rgba(255,255,255,0.06);
+  padding:12px;border-radius:10px;color:#e6eef8;
+  font-size:14px;
+}
+input:focus{border-color:var(--accent)}
+
+/* button */
+.btn{
+  padding:12px;border-radius:10px;border:0;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  font-weight:700;font-size:15px;color:white;
+  cursor:pointer;margin-top:10px;
+}
+
+/* message */
+#msg{margin-top:6px;font-size:13px;text-align:left}
+
+/* info panel */
+.info{
+  padding:26px;border-radius:14px;
+  background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.03);
+  display:flex;flex-direction:column;gap:14px;
+}
+.info h2{margin:0 0 6px;font-size:20px}
+
+.feature{
+  display:flex;gap:12px;align-items:flex-start;
+}
+.dot{
+  width:12px;height:12px;border-radius:4px;
+  background:linear-gradient(180deg,var(--accent),var(--accent-2));
+  margin-top:6px;
+}
+
+/* responsive */
+@media(max-width:900px){
+  .wrap{grid-template-columns:1fr}
+  .info{order:2}
+}

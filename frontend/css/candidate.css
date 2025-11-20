@@ -1,0 +1,125 @@
+/* theme */
+:root{
+  --bg1: #0f172a;
+  --bg2: #07143a;
+  --muted: #9aa4bf;
+  --accent: #4f46e5;
+  --accent-2: #06b6d4;
+  --success: #10b981;
+  --danger: #ef4444;
+  --glass: rgba(255,255,255,0.06);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+  background:linear-gradient(135deg,var(--bg1), var(--bg2));
+  color:#e6eef8;
+  padding:2rem;
+  display:grid;
+  place-items:center;
+}
+
+/* wrapper */
+.wrap-list{
+  width:100%;
+  max-width:1100px;
+}
+
+.title{
+  text-align:center;
+  font-size:28px;
+  font-weight:700;
+  margin-bottom:26px;
+  color:white;
+}
+
+/* grid */
+.candidate-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
+}
+
+/* card */
+.c-card{
+  background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  backdrop-filter:blur(8px) saturate(120%);
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:0 10px 40px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  padding:22px;
+  height:130px;
+  display:flex;
+  flex-direction:column;
+  overflow-y:auto;
+}
+
+/* top area */
+.c-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.c-info-section{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+/* avatar */
+.c-avatar{
+  width:52px;
+  height:52px;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:grid;
+  place-items:center;
+  color:white;
+  font-size:20px;
+  font-weight:700;
+}
+
+.c-name{
+  font-size:18px;
+  font-weight:600;
+  margin:0;
+}
+
+.c-party{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+/* vote count badge */
+.vote-badge{
+  padding:6px 10px;
+  border-radius:10px;
+  background:linear-gradient(90deg,var(--accent-2),var(--accent));
+  color:white;
+  font-size:13px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+/* vote button */
+/* .vote-btn{
+  margin-top:auto;
+  padding:10px;
+  border-radius:10px;
+  border:0;
+  cursor:pointer;
+  font-weight:700;
+  font-size:14px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  color:white;
+  width:100%;
+  transition:0.25s;
+} */
+
+.vote-btn:hover{
+  opacity:0.9;
+}
