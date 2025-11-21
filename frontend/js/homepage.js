@@ -6,6 +6,7 @@ function navigate(page){
 // Logout button
 document.getElementById('logout-btn').addEventListener('click', ()=>{
   // Remove token if stored
-  // localStorage.removeItem('token');
-  window.location.href = "/index.html";
+  // localStorage.removeItem('token');]
+  localStorage.removeItem("token")
+  window.location.replace("../html/index.html");
 });

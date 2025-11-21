@@ -1,62 +1,88 @@
-// Static candidate data (sorted by vote count)
-let candidates = [
-    { id: 1, name: "John Carter", votes: 40 },
-    { id: 2, name: "Aisha Patel", votes: 35 },
-    { id: 3, name: "Rohit Sharma", votes: 30 },
-    { id: 4, name: "Emily Stone", votes: 22 },
-];
+document.addEventListener("DOMContentLoaded", async () => {
 
-// DOM
-const list = document.getElementById("candidateList");
-const popup = document.getElementById("popupOverlay");
-const popupText = document.getElementById("popupText");
-const cancelBtn = document.getElementById("cancelBtn");
-const confirmBtn = document.getElementById("confirmBtn");
+    const token = localStorage.getItem("token")
+    if(!token)
+        window.location.replace("html/index.html")
 
-let selectedCandidate = null;
-let userVoted = false;
+    const res = await fetch("http://localhost:3000/user/candidate", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        }
+    })
 
-// Render Candidates
-function renderCandidates() {
-    list.innerHTML = "";
+    const result = await res.json()
 
-    candidates.forEach(c => {
-        const div = document.createElement("div");
-        div.className = "candidate-card";
+    const candidates = result.candidateData       
+    let userVoted = result.userVotes              
 
-        div.innerHTML = `
-            <div class="candidate-info">
-                <span class="candidate-name">${c.name}</span>
-                <span class="vote-count">Votes: ${c.votes}</span>
-            </div>
-            <button class="btn voteBtn" data-id="${c.id}" ${userVoted ? "disabled" : ""}>Vote</button>
-        `;
+    // DOM
+    const list = document.getElementById("candidateList");
+    const popup = document.getElementById("popupOverlay");
+    const popupText = document.getElementById("popupText");
+    const cancelBtn = document.getElementById("cancelBtn");
+    const confirmBtn = document.getElementById("confirmBtn");
 
-        list.appendChild(div);
-    });
+    let selectedCandidate = null;
 
-    attachVoteEvents();
-}
+    // Render Candidates
+    function renderCandidates() {
+        list.innerHTML = "";
 
-function attachVoteEvents() {
-    document.querySelectorAll(".voteBtn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            selectedCandidate = candidates.find(c => c.id == btn.dataset.id);
-            popupText.innerText = `Are you sure you want to vote for "${selectedCandidate.name}"?`;
-            popup.classList.remove("hidden");
+        candidates.forEach(c => {
+            const div = document.createElement("div");
+            div.className = "candidate-card";
+
+            div.innerHTML = `
+                <div class="candidate-info">
+                    <span class="candidate-name">${c.name}</span>
+                    <span class="vote-count">Votes: ${c.voteCount}</span>
+                </div>
+                <button class="btn voteBtn" data-id="${c._id}" ${userVoted ? "disabled" : ""}>Vote</button>
+            `;
+
+            list.appendChild(div);
         });
-    });
-}
 
-cancelBtn.onclick = () => popup.classList.add("hidden");
+        attachVoteEvents();
+    }
 
-confirmBtn.onclick = () => {
-    selectedCandidate.votes += 1;
-    userVoted = true;
+    function attachVoteEvents() {
+        document.querySelectorAll(".voteBtn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                selectedCandidate = candidates.find(c => c._id == btn.dataset.id);
+                popupText.innerText = `Are you sure you want to vote for "${selectedCandidate.name}"?`;
+                popup.classList.remove("hidden");
+            });
+        });
+    }
 
-    popup.classList.add("hidden");
+    cancelBtn.onclick = () => popup.classList.add("hidden");
+
+    confirmBtn.onclick = async () => {
+        const id = selectedCandidate._id;
+
+        const res = await fetch(`http://localhost:3000/user/vote/${id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        });
+
+        const data = await res.json();
+        console.log(data);
+
+        if (res.ok) {
+            selectedCandidate.voteCount += 1;
+            userVoted = true;
+            popup.classList.add("hidden");
+            renderCandidates();
+        } else {
+            alert(data.message || "Something went wrong");
+        }
+    };
+
     renderCandidates();
-};
-
-// Initial
-renderCandidates();
+});

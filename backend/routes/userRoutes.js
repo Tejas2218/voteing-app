@@ -123,6 +123,19 @@ router.put('/profile/password', jwtAuthMiddleware, async (req,res)=>{
     }
 })
 
+router.get('/candidate', jwtAuthMiddleware, async (req,res) => {
+    try{
+        const candidateData = await candidate.find()
+        const userVoted = req.user.isVoted
+        console.log("data found")
+        res.status(200).json({candidateData: candidateData, userVotes: userVoted})
+        
+    }catch(err){
+        console.log(err)
+        res.status(500).json({error: 'internal servar error "candidate-id"'})
+    }
+})
+
 // let's start voting
 router.post('/vote/:candidateID', jwtAuthMiddleware, async (req,res) => {
     //no admin can vote

@@ -75,7 +75,7 @@ signinForm.addEventListener('submit', async (e) => {
     signinMsg.innerHTML = `<span class="error">${data.error}</span>`;
     signinMsg.innerHTML = '<span class="success">Signed in (demo). Integrate with server to authenticate.</span>';
 
-    window.location.href = "/html/homepage.html";
+    window.location.replace("/html/homepage.html");
     
     console.log('Signin payload ->', { aadhaar: normalizeAadhaar(aad), password: pwd });
   }else{
@@ -140,7 +140,7 @@ signupForm.addEventListener('submit', async function(e) {
   setTimeout(()=>{
     showSignin(); 
     document.getElementById('signin-msg').innerHTML = '<span class=\"success\">Account created. Plase sign in.</span>';
-    window.location.href = "/html/homepage.html"
+    window.location.replace("/html/homepage.html");
   }, 700);
 });
 

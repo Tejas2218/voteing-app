@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", async () => {
 // -------------------------------
 // STATIC RESULT DATE
 // -------------------------------
@@ -7,13 +8,27 @@ const statusText = document.getElementById("statusText");
 // -------------------------------
 // STATIC TOP 5 CANDIDATES
 // -------------------------------
-const candidates = [
-  { name: "John Carter", party: "National Unity Party", votes: 612 },
-  { name: "Aisha Verma", party: "People First Front", votes: 544 },
-  { name: "Rohit Sharma", party: "Progressive Alliance", votes: 420 },
-  { name: "Mira Khan", party: "Social Democratic Front", votes: 385 },
-  { name: "David Lee", party: "Future Vision Party", votes: 310 }
-];
+// const candidates = [
+//   { name: "John Carter", party: "National Unity Party", votes: 612 },
+//   { name: "Aisha Verma", party: "People First Front", votes: 544 },
+//   { name: "Rohit Sharma", party: "Progressive Alliance", votes: 420 },
+//   { name: "Mira Khan", party: "Social Democratic Front", votes: 385 },
+//   { name: "David Lee", party: "Future Vision Party", votes: 310 }
+// ];
+
+const token = localStorage.getItem("token")
+if(!token)
+  window.location.replace("html/index.html")
+  const res = await fetch("http://localhost:3000/user/candidate", {
+  method: "GET",
+  headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+  }
+})
+
+const data = await res.json()
+const candidates = data.candidateData
 
 // -------------------------------
 // DATE LOGIC (ONLY TEXT CHANGES)
@@ -45,7 +60,8 @@ candidates.forEach(c => {
     <div class="candidate">
       <h3>${c.name}</h3>
       <p>${c.party}</p>
-      <p><strong>Votes:</strong> ${c.votes}</p>
+      <p><strong>Votes:</strong> ${c.voteCount}</p>
     </div>
   `;
 });
+})
